@@ -19,7 +19,7 @@ app.use('/api', require('./api'));
 
 
 app.get('*', function (req, res) {
-  // console.log(process.env.JWT);
+  console.log(process.env.JWT);
   res.sendFile(path.join(__dirname, '..', 'public/index.html'));
 });
 
