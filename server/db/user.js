@@ -57,7 +57,7 @@ User.findByToken = async function (token) {
 
 const hashPassword = async(user) => {
   if (user.changed('password')) {
-    user.password = await bcrypt.hash(user.password, SALT_ROUNDS);
+    user.password = await bcrypt.hash(user.password, 5);
   }
 }
 
