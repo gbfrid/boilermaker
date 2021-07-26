@@ -6,7 +6,6 @@ const app = express();
 const path = require('path');
 const secret = process.env.JWT;
 
-module.exports = app;
 
 app.use(morgan('dev'));
 
@@ -18,6 +17,16 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 
 
 app.use('/api', require('./api'));
+
+app.use((req, res, next) => {
+  if (path.extname(req.path).length) {
+    const err = new Error('Not found')
+    err.status = 404
+    next(err)
+  } else {
+    next()
+  }
+})
 
 app.get('/', (req, res)=> res.sendFile(path.join(__dirname, '..', 'public/index.html')));
 
@@ -34,4 +43,4 @@ app.use((err, req, res, next) => {
 
 
 
-
+module.exports = app;
